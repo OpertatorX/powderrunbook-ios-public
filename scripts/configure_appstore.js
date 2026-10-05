@@ -110,9 +110,6 @@ async function main() {
 
   await configurePrice(app);
 
-  const territories = await AU.Territory.getAsync(context);
-  if (territories.length) await app.updateAsync({ territories: territories.map(t => t.id) });
-
   fs.writeFileSync(path.join(ROOT, '.powderrunbook-asc.json'), JSON.stringify({ ascAppId: app.id, bundleId: BUNDLE, versionId: version.id }, null, 2));
   console.log(JSON.stringify({
     status: 'CONFIGURED',
@@ -122,7 +119,6 @@ async function main() {
     locales: ['en-US', 'fr-FR'],
     price: '9.99 EUR / 9.99 USD',
     privacy: 'DATA_NOT_COLLECTED',
-    territories: territories.length,
   }, null, 2));
 }
 
