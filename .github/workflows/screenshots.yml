@@ -1,4 +1,4 @@
-name: App Store Screenshots
+﻿name: App Store Screenshots
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
 jobs:
   capture:
     runs-on: macos-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - name: Install XcodeGen
@@ -18,88 +18,71 @@ jobs:
           xcodebuild \
             -project PowderRunbook.xcodeproj \
             -scheme PowderRunbook \
-            -configuration Release \
-            -sdk iphonesimulator \
+            -configuration Debug \
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$PWD/DerivedData" \
             CODE_SIGNING_ALLOWED=NO build
-      - name: Select devices
+      - name: Select stable simulators
         id: devices
         run: |
           DEVICES=$(xcrun simctl list devices available -j)
-          IPHONE=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPhone")]; p=[x for x in a if "Pro Max" in x["name"]]; print((p or a)[-1]["udid"])')
-          IPAD=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPad")]; p=[x for x in a if "13-inch" in x["name"]]; print((p or a)[-1]["udid"])')
+          IPHONE=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPhone")]; print(a[0]["udid"])')
+          IPAD=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPad")]; print(a[0]["udid"])')
           echo "iphone=$IPHONE" >> "$GITHUB_OUTPUT"
           echo "ipad=$IPAD" >> "$GITHUB_OUTPUT"
           xcrun simctl list devices | grep -E "$IPHONE|$IPAD" || true
-      - name: Prepare capture helpers
-        run: |
-          mkdir -p screenshots/en-US/iphone screenshots/fr-FR/iphone screenshots/en-US/ipad screenshots/fr-FR/ipad
-          cat > "$RUNNER_TEMP/run_timeout.py" <<'PY'
-          import subprocess, sys
-          timeout = float(sys.argv[1])
-          try:
-              subprocess.run(sys.argv[2:], check=True, timeout=timeout)
-          except subprocess.TimeoutExpired:
-              print('TIMEOUT:', ' '.join(sys.argv[2:]), file=sys.stderr)
-              raise SystemExit(124)
-          PY
-      - name: Capture iPhone FR and US
+      - name: Prepare folders
+        run: mkdir -p screenshots/en-US/iphone screenshots/fr-FR/iphone screenshots/en-US/ipad screenshots/fr-FR/ipad
+      - name: Warm and capture iPhone
         env:
           UDID: ${{ steps.devices.outputs.iphone }}
         run: |
           set -euo pipefail
-          APP="$PWD/DerivedData/Build/Products/Release-iphonesimulator/PowderRunbook.app"
-          safe() { python3 "$RUNNER_TEMP/run_timeout.py" "$@"; }
-          xcrun simctl shutdown all || true
-          safe 15 xcrun simctl boot "$UDID" || true
-          READY=0
-          for i in $(seq 1 40); do
-            if safe 12 xcrun simctl install "$UDID" "$APP"; then READY=1; break; fi
-            sleep 3
-          done
-          test "$READY" -eq 1
-          safe 10 xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 --cellularBars 4 || true
+          xcodebuild \
+            -project PowderRunbook.xcodeproj \
+            -scheme PowderRunbook \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,id=$UDID" \
+            -derivedDataPath "$PWD/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            test
+          xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 --cellularBars 4 || true
           capture_locale () {
             LOCALE="$1"; LANG="$2"; OUT="$3"
             for SCREEN in jobs detail inventory overview settings; do
-              safe 10 xcrun simctl terminate "$UDID" com.operatorx.powderrunbook || true
-              safe 20 xcrun simctl launch "$UDID" com.operatorx.powderrunbook -AppleLanguages "($LANG)" -AppleLocale "$LOCALE" -store-demo "-screen=$SCREEN"
+              xcrun simctl terminate "$UDID" com.operatorx.powderrunbook || true
+              xcrun simctl launch "$UDID" com.operatorx.powderrunbook -AppleLanguages "($LANG)" -AppleLocale "$LOCALE" -store-demo "-screen=$SCREEN"
               sleep 2
-              safe 20 xcrun simctl io "$UDID" screenshot "$OUT/$SCREEN.png"
+              xcrun simctl io "$UDID" screenshot "$OUT/$SCREEN.png"
             done
           }
           capture_locale 'en_US' 'en' 'screenshots/en-US/iphone'
           capture_locale 'fr_FR' 'fr' 'screenshots/fr-FR/iphone'
-          safe 15 xcrun simctl shutdown "$UDID" || true
-      - name: Capture iPad FR and US
+      - name: Warm and capture iPad
         env:
           UDID: ${{ steps.devices.outputs.ipad }}
         run: |
           set -euo pipefail
-          APP="$PWD/DerivedData/Build/Products/Release-iphonesimulator/PowderRunbook.app"
-          safe() { python3 "$RUNNER_TEMP/run_timeout.py" "$@"; }
-          xcrun simctl shutdown all || true
-          safe 15 xcrun simctl boot "$UDID" || true
-          READY=0
-          for i in $(seq 1 40); do
-            if safe 12 xcrun simctl install "$UDID" "$APP"; then READY=1; break; fi
-            sleep 3
-          done
-          test "$READY" -eq 1
-          safe 10 xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 || true
+          xcodebuild \
+            -project PowderRunbook.xcodeproj \
+            -scheme PowderRunbook \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,id=$UDID" \
+            -derivedDataPath "$PWD/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            test
+          xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 || true
           capture_locale () {
             LOCALE="$1"; LANG="$2"; OUT="$3"
             for SCREEN in jobs detail inventory overview settings; do
-              safe 10 xcrun simctl terminate "$UDID" com.operatorx.powderrunbook || true
-              safe 20 xcrun simctl launch "$UDID" com.operatorx.powderrunbook -AppleLanguages "($LANG)" -AppleLocale "$LOCALE" -store-demo "-screen=$SCREEN"
+              xcrun simctl terminate "$UDID" com.operatorx.powderrunbook || true
+              xcrun simctl launch "$UDID" com.operatorx.powderrunbook -AppleLanguages "($LANG)" -AppleLocale "$LOCALE" -store-demo "-screen=$SCREEN"
               sleep 2
-              safe 20 xcrun simctl io "$UDID" screenshot "$OUT/$SCREEN.png"
+              xcrun simctl io "$UDID" screenshot "$OUT/$SCREEN.png"
             done
           }
           capture_locale 'en_US' 'en' 'screenshots/en-US/ipad'
           capture_locale 'fr_FR' 'fr' 'screenshots/fr-FR/ipad'
-          safe 15 xcrun simctl shutdown "$UDID" || true
       - name: Validate screenshot set
         run: |
           set -euo pipefail
