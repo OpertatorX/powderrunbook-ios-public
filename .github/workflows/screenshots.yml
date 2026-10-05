@@ -1,11 +1,11 @@
-﻿name: App Store Screenshots
+name: App Store Screenshots
 
 on:
   workflow_dispatch:
 
 jobs:
   capture:
-    runs-on: macos-latest
+    runs-on: macos-14
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
