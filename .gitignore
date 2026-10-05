@@ -13,3 +13,5 @@ xcodegen-artifact/
 node_modules/
 RUN_APPLE_LOGIN.ps1
 .powderrunbook-asc.json
+
+screenshots-final-raw/
