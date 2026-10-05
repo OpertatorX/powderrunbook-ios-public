@@ -23,7 +23,7 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$PWD/DerivedData" \
             CODE_SIGNING_ALLOWED=NO build
-      - name: Select 6.9-inch iPhone and 13-inch iPad
+      - name: Select devices
         id: devices
         run: |
           DEVICES=$(xcrun simctl list devices available -j)
@@ -32,36 +32,59 @@ jobs:
           echo "iphone=$IPHONE" >> "$GITHUB_OUTPUT"
           echo "ipad=$IPAD" >> "$GITHUB_OUTPUT"
           xcrun simctl list devices | grep -E "$IPHONE|$IPAD" || true
-      - name: Boot and install
+      - name: Prepare capture folders
+        run: mkdir -p screenshots/en-US/iphone screenshots/fr-FR/iphone screenshots/en-US/ipad screenshots/fr-FR/ipad
+      - name: Capture iPhone FR and US
+        env:
+          UDID: ${{ steps.devices.outputs.iphone }}
         run: |
+          set -euo pipefail
           APP="$PWD/DerivedData/Build/Products/Release-iphonesimulator/PowderRunbook.app"
-          for UDID in '${{ steps.devices.outputs.iphone }}' '${{ steps.devices.outputs.ipad }}'; do
-            xcrun simctl boot "$UDID" || true
-            xcrun simctl bootstatus "$UDID" -b
-            xcrun simctl install "$UDID" "$APP"
-          done
-      - name: Capture real localized app screens
-        run: |
-          mkdir -p screenshots/en-US/iphone screenshots/fr-FR/iphone screenshots/en-US/ipad screenshots/fr-FR/ipad
-          capture () {
-            UDID="$1"; LOCALE="$2"; LANG="$3"; OUT="$4"
+          xcrun simctl shutdown all || true
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
+          xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 --cellularBars 4 || true
+          capture_locale () {
+            LOCALE="$1"; LANG="$2"; OUT="$3"
             for SCREEN in jobs detail inventory overview settings; do
               xcrun simctl terminate "$UDID" com.operatorx.powderrunbook || true
-              xcrun simctl launch "$UDID" com.operatorx.powderrunbook \
-                -AppleLanguages "($LANG)" \
-                -AppleLocale "$LOCALE" \
-                -store-demo \
-                "-screen=$SCREEN"
-              sleep 2
+              xcrun simctl launch "$UDID" com.operatorx.powderrunbook -AppleLanguages "($LANG)" -AppleLocale "$LOCALE" -store-demo "-screen=$SCREEN"
+              sleep 1.5
               xcrun simctl io "$UDID" screenshot "$OUT/$SCREEN.png"
             done
           }
-          capture '${{ steps.devices.outputs.iphone }}' 'en_US' 'en' 'screenshots/en-US/iphone'
-          capture '${{ steps.devices.outputs.iphone }}' 'fr_FR' 'fr' 'screenshots/fr-FR/iphone'
-          capture '${{ steps.devices.outputs.ipad }}' 'en_US' 'en' 'screenshots/en-US/ipad'
-          capture '${{ steps.devices.outputs.ipad }}' 'fr_FR' 'fr' 'screenshots/fr-FR/ipad'
-      - name: Record screenshot dimensions
+          capture_locale 'en_US' 'en' 'screenshots/en-US/iphone'
+          capture_locale 'fr_FR' 'fr' 'screenshots/fr-FR/iphone'
+          xcrun simctl shutdown "$UDID"
+      - name: Capture iPad FR and US
+        env:
+          UDID: ${{ steps.devices.outputs.ipad }}
         run: |
+          set -euo pipefail
+          APP="$PWD/DerivedData/Build/Products/Release-iphonesimulator/PowderRunbook.app"
+          xcrun simctl shutdown all || true
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
+          xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 || true
+          capture_locale () {
+            LOCALE="$1"; LANG="$2"; OUT="$3"
+            for SCREEN in jobs detail inventory overview settings; do
+              xcrun simctl terminate "$UDID" com.operatorx.powderrunbook || true
+              xcrun simctl launch "$UDID" com.operatorx.powderrunbook -AppleLanguages "($LANG)" -AppleLocale "$LOCALE" -store-demo "-screen=$SCREEN"
+              sleep 1.5
+              xcrun simctl io "$UDID" screenshot "$OUT/$SCREEN.png"
+            done
+          }
+          capture_locale 'en_US' 'en' 'screenshots/en-US/ipad'
+          capture_locale 'fr_FR' 'fr' 'screenshots/fr-FR/ipad'
+          xcrun simctl shutdown "$UDID"
+      - name: Validate screenshot set
+        run: |
+          set -euo pipefail
+          COUNT=$(find screenshots -name '*.png' | wc -l | tr -d ' ')
+          test "$COUNT" -eq 20
           find screenshots -name '*.png' -print0 | while IFS= read -r -d '' file; do
             echo "$file"
             sips -g pixelWidth -g pixelHeight "$file" | tail -n +2
