@@ -28,13 +28,30 @@ jobs:
         id: devices
         run: |
           DEVICES=$(xcrun simctl list devices available -j)
-          IPHONE=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPhone")]; p=[x for x in a if "Pro Max" in x["name"]]; print((p or a)[-1]["udid"])')
-          IPAD=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPad")]; p=[x for x in a if "13-inch" in x["name"] or "12.9-inch" in x["name"]]; print((p or a)[-1]["udid"])')
+          IPHONE=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPhone")]; print(a[0]["udid"])')
+          IPAD=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPad")]; print(a[0]["udid"])')
           echo "iphone=$IPHONE" >> "$GITHUB_OUTPUT"
           echo "ipad=$IPAD" >> "$GITHUB_OUTPUT"
           xcrun simctl list devices | grep -E "$IPHONE|$IPAD" || true
-      - name: Prepare folders
-        run: mkdir -p screenshots/en-US/iphone screenshots/fr-FR/iphone screenshots/en-US/ipad screenshots/fr-FR/ipad
+      - name: Prepare folders and helper
+        run: |
+          mkdir -p screenshots/en-US/iphone screenshots/fr-FR/iphone screenshots/en-US/ipad screenshots/fr-FR/ipad
+          cat > "$RUNNER_TEMP/wait_boot.sh" <<'SH'
+          #!/bin/bash
+          set -euo pipefail
+          UDID="$1"
+          for i in $(seq 1 60); do
+            if xcrun simctl list devices | grep "$UDID" | grep -q '(Booted)'; then
+              echo "Simulator $UDID is Booted"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Simulator $UDID did not reach Booted state" >&2
+          xcrun simctl list devices | grep "$UDID" || true
+          exit 1
+          SH
+          chmod +x "$RUNNER_TEMP/wait_boot.sh"
       - name: Capture iPhone FR and US
         env:
           UDID: ${{ steps.devices.outputs.iphone }}
@@ -42,8 +59,8 @@ jobs:
           set -euo pipefail
           APP="$PWD/DerivedData/Build/Products/Debug-iphonesimulator/PowderRunbook.app"
           xcrun simctl shutdown all || true
-          xcrun simctl boot "$UDID"
-          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl boot "$UDID" || true
+          "$RUNNER_TEMP/wait_boot.sh" "$UDID"
           xcrun simctl install "$UDID" "$APP"
           xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 --cellularBars 4 || true
           capture_locale () {
@@ -64,8 +81,8 @@ jobs:
         run: |
           set -euo pipefail
           APP="$PWD/DerivedData/Build/Products/Debug-iphonesimulator/PowderRunbook.app"
-          xcrun simctl boot "$UDID"
-          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl boot "$UDID" || true
+          "$RUNNER_TEMP/wait_boot.sh" "$UDID"
           xcrun simctl install "$UDID" "$APP"
           xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 || true
           capture_locale () {
