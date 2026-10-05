@@ -1,26 +1,27 @@
 Nom: PowderRunbook
-Sous-titre: Suivi atelier thermolaquage
+Sous-titre: Cuisson, contrôle & lots
 
 Texte promotionnel:
-Suivez jobs, lots de poudre, relevés de cuisson et contrôles dans un runbook hors ligne conçu pour les petits ateliers de thermolaquage.
+Relevés process hors ligne : lots de poudre, cuisson, épaisseur et contrôle saisi par l'opérateur, sans abonnement de gestion d'atelier.
 
 Description:
-PowderRunbook est un runbook atelier hors ligne pour les thermolaqueurs et indépendants. Gardez chaque pièce, lot de poudre, relevé de cuisson et note de contrôle réunis de la réception à la remise client, sans déployer un ERP complet.
+PowderRunbook est un carnet de relevés process sur appareil pour les ateliers de thermolaquage et les indépendants. Liez chaque job à son lot de poudre, ses notes de préparation, ses valeurs cibles et relevées de cuisson, ses mesures d'épaisseur et son résultat de contrôle saisi par l'opérateur—sans compte, cloud ni système complet de gestion d'atelier.
 
-Pensé pour l’atelier :
-• faites avancer les jobs de Réception à Prépa, Masquage, Poudrage, Cuisson, Contrôle puis Terminé ;
-• consignez client, pièce, quantité et support ;
-• liez les jobs aux lots de poudre et suivez la consommation enregistrée ;
-• consignez l’épaisseur cible et l’épaisseur mesurée ;
-• enregistrez les valeurs cibles et relevées de température/durée de cuisson ;
-• gardez notes de préparation, notes du job et statut de contrôle saisi par l’opérateur ;
-• visualisez flux actif, jobs récents, consommation relevée et lots bas ;
-• recherchez par numéro, client, pièce ou poudre ;
-• partagez un résumé du job via la feuille de partage iOS ;
-• affichez °C/°F et µm/mil selon vos habitudes.
+LES RELEVÉS PROCESS D'ABORD
+Gardez l'épaisseur cible avec la mesure relevée, la cuisson cible avec la température/durée observée, et le contrôle qualité avec le job concerné. PowderRunbook consigne les faits atelier ; l'app n'approuve pas automatiquement un cycle et ne certifie aucune pièce.
 
-Privé par conception : aucun compte, aucune publicité, aucune analyse, aucun abonnement et aucun envoi cloud. Vos données atelier restent sur l’appareil sauf partage volontaire d’un résumé.
+TRACEZ LES LOTS DE POUDRE
+Enregistrez marque, teinte, code, numéro de lot, emplacement et poids initial. La consommation saisie sur les jobs fournit une estimation locale du poids restant.
 
-PowderRunbook est un outil de traçabilité. Il ne détermine pas les cycles de cuisson, ne certifie pas les pièces et ne remplace pas les TDS/SDS fabricant, vos procédures approuvées, les opérateurs qualifiés ni les instruments de contrôle.
+UN FLUX ATELIER SIMPLE
+Faites avancer le travail de Réception à Prépa, Masquage, Poudrage, Cuisson, Contrôle puis Terminé en conservant client, pièce, quantité et support avec le relevé.
 
-Mots-clés: thermolaquage,poudre,atelier,job,cuisson,épaisseur,contrôle,stock,lot,finition,métal
+L'ATELIER EN UN COUP D'ŒIL
+Consultez étapes actives, derniers jobs terminés, consommation relevée et lots bas sans tableau de bord serveur.
+
+PRIVÉ PAR CONCEPTION
+Aucun compte, aucune publicité, aucune analyse, aucun abonnement et aucun envoi cloud. Les relevés restent sur l'appareil sauf partage volontaire d'un résumé via la feuille de partage iOS.
+
+PowderRunbook est un outil de traçabilité, pas un système de certification de procédé. Respectez toujours les TDS/SDS à jour du fabricant, les exigences de préparation, vos procédures d'inspection étalonnées et les règles de sécurité de l'atelier.
+
+Mots-clés: thermolaquage,traçabilité,cuisson,contrôle,épaisseur,lot,qualité,atelier,poudre,métal

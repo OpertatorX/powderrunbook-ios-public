@@ -137,3 +137,9 @@
 "settings.about" = "About PowderRunbook";
 "settings.about_detail" = "A focused offline runbook for small powder-coating shops and solo operators who need job, material, cure and QC records without a full ERP.";
 "settings.version" = "Version";
+
+"share.stage" = "Stage";
+"share.powder" = "Powder";
+"share.target_cure" = "Target cure";
+"share.recorded_cure" = "Recorded cure";
+"share.qc" = "QC";

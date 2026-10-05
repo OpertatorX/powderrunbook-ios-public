@@ -15,24 +15,23 @@
     "info": {
       "en-US": {
         "title": "PowderRunbook",
-        "subtitle": "Powder coating job tracker",
-        "description": "PowderRunbook is an offline shop-floor runbook for small powder-coating teams. Keep each job's prep, powder lot, cure record, thickness check and QC notes together without moving your workflow into a full ERP.\n\nBUILT AROUND THE REAL SHOP FLOW\nMove work through Prep, Mask, Coat, Cure, QC and Done. Every job keeps its customer, part, quantity, substrate and operator notes in one place.\n\nTRACE POWDER LOTS\nRecord brand, color, code, lot number, storage location and starting weight. Logged job usage gives you a practical on-device remaining-weight estimate.\n\nRECORD CURE VALUES\nKeep the target temperature and time beside the values actually recorded for the job. PowderRunbook stores the record; it does not decide whether a cure schedule is compliant.\n\nKEEP THICKNESS & QC TOGETHER\nStore target and measured film thickness, QC status and final notes with the job record.\n\nSEE THE FLOOR AT A GLANCE\nThe overview shows active work, recently completed jobs and recorded powder usage without a cloud dashboard.\n\nPRIVATE BY DESIGN\nNo account, ads, analytics or cloud upload. Workshop records stay on the device unless you choose to share or move them yourself.\n\nPowderRunbook is a recordkeeping aid, not a process certification system. Always follow the powder manufacturer's technical data sheet, pretreatment requirements, calibrated equipment procedures and workplace safety rules.",
+        "subtitle": "Cure, QC & Powder Runbook",
+        "description": "PowderRunbook is a focused on-device process runbook for powder-coating shops and solo operators. Link each job to its powder lot, preparation notes, target and observed cure values, film-thickness readings and operator-entered QC result—without an account, cloud service or full shop-management system.\n\nPROCESS RECORDS FIRST\nKeep target thickness beside the measured result, target cure beside observed temperature/time, and QC notes with the exact job that produced them. PowderRunbook records shop-floor facts; it does not automatically approve a cure cycle or certify a part.\n\nTRACE POWDER LOTS\nRecord brand, colour, code, lot number, storage location and starting weight. Job usage provides a practical on-device estimate of remaining powder.\n\nA SIMPLE SHOP FLOW\nMove work through Intake, Prep, Mask, Coat, Cure, QC and Done while keeping customer, part, quantity and substrate details attached to the record.\n\nSEE RECORDED WORK AT A GLANCE\nReview active stages, recent completions, recorded powder usage and low-stock lots without a server dashboard.\n\nPRIVATE BY DESIGN\nNo account, ads, analytics, subscription or cloud upload. Records stay on the device unless you explicitly share a job summary with the iOS share sheet.\n\nPowderRunbook is a recordkeeping aid, not a process-certification system. Always follow the coating manufacturer's current TDS/SDS, pretreatment requirements, calibrated inspection procedures and workplace-safety rules.",
         "keywords": [
           "powder coating",
-          "coating",
-          "powder",
-          "shop",
-          "job",
-          "workflow",
-          "cure",
-          "QC",
           "DFT",
-          "inventory",
+          "cure log",
+          "QC",
+          "traceability",
+          "batch",
+          "thickness",
+          "oven",
           "lot",
-          "paint"
+          "finish",
+          "metal"
         ],
         "marketingUrl": "https://operatorx-powderrunbook.vercel.app/",
-        "promoText": "A clean offline runbook for powder-coating jobs, powder lots, cure records, thickness checks and QC.",
+        "promoText": "Offline process records for powder lots, cure values, coating thickness and operator-entered QC—without a shop-management subscription.",
         "supportUrl": "https://operatorx-powderrunbook.vercel.app/support.html",
         "privacyPolicyUrl": "https://operatorx-powderrunbook.vercel.app/privacy.html",
         "screenshots": {
@@ -54,22 +53,22 @@
       },
       "fr-FR": {
         "title": "PowderRunbook",
-        "subtitle": "Jobs thermolaquage & lots",
-        "description": "PowderRunbook est un carnet d'atelier hors ligne conçu pour les petites équipes de thermolaquage. Regroupez préparation, lot de poudre, relevé de cuisson, contrôle d'épaisseur et notes qualité sans transformer l'atelier en projet ERP.\n\nUN FLUX PENSÉ POUR L'ATELIER\nFaites avancer chaque job de Préparation à Masquage, Poudrage, Cuisson, Contrôle puis Terminé. Client, pièce, quantité, support et notes opérateur restent avec le job.\n\nTRACEZ LES LOTS DE POUDRE\nEnregistrez marque, teinte, code, numéro de lot, emplacement et poids initial. La consommation saisie sur les jobs fournit une estimation pratique du poids restant sur l'appareil.\n\nCONSERVEZ LES RELEVÉS DE CUISSON\nGardez température et durée cibles avec les valeurs réellement relevées. PowderRunbook consigne les données ; l'app ne valide pas la conformité d'un cycle de cuisson.\n\nÉPAISSEUR & CONTRÔLE AU MÊME ENDROIT\nEnregistrez l'épaisseur cible, l'épaisseur mesurée, le statut qualité et les notes finales avec le job.\n\nL'ATELIER EN UN COUP D'ŒIL\nL'aperçu montre les jobs actifs, les derniers terminés et la consommation de poudre relevée sans tableau de bord cloud.\n\nPRIVÉ PAR CONCEPTION\nAucun compte, aucune publicité, aucune analyse et aucun envoi cloud. Les données atelier restent sur l'appareil.\n\nPowderRunbook est un outil de traçabilité, pas un système de certification de procédé. Respectez toujours la fiche technique du fabricant de poudre, les exigences de préparation, les procédures des instruments étalonnés et les règles de sécurité de l'atelier.",
+        "subtitle": "Cuisson, contrôle & lots",
+        "description": "PowderRunbook est un carnet de relevés process sur appareil pour les ateliers de thermolaquage et les indépendants. Liez chaque job à son lot de poudre, ses notes de préparation, ses valeurs cibles et relevées de cuisson, ses mesures d'épaisseur et son résultat de contrôle saisi par l'opérateur—sans compte, cloud ni système complet de gestion d'atelier.\n\nLES RELEVÉS PROCESS D'ABORD\nGardez l'épaisseur cible avec la mesure relevée, la cuisson cible avec la température/durée observée, et le contrôle qualité avec le job concerné. PowderRunbook consigne les faits atelier ; l'app n'approuve pas automatiquement un cycle et ne certifie aucune pièce.\n\nTRACEZ LES LOTS DE POUDRE\nEnregistrez marque, teinte, code, numéro de lot, emplacement et poids initial. La consommation saisie sur les jobs fournit une estimation locale du poids restant.\n\nUN FLUX ATELIER SIMPLE\nFaites avancer le travail de Réception à Prépa, Masquage, Poudrage, Cuisson, Contrôle puis Terminé en conservant client, pièce, quantité et support avec le relevé.\n\nL'ATELIER EN UN COUP D'ŒIL\nConsultez étapes actives, derniers jobs terminés, consommation relevée et lots bas sans tableau de bord serveur.\n\nPRIVÉ PAR CONCEPTION\nAucun compte, aucune publicité, aucune analyse, aucun abonnement et aucun envoi cloud. Les relevés restent sur l'appareil sauf partage volontaire d'un résumé via la feuille de partage iOS.\n\nPowderRunbook est un outil de traçabilité, pas un système de certification de procédé. Respectez toujours les TDS/SDS à jour du fabricant, les exigences de préparation, vos procédures d'inspection étalonnées et les règles de sécurité de l'atelier.",
         "keywords": [
           "thermolaquage",
-          "poudre",
-          "atelier",
-          "job",
+          "traçabilité",
           "cuisson",
           "contrôle",
           "épaisseur",
           "lot",
-          "stock",
-          "peinture"
+          "qualité",
+          "atelier",
+          "poudre",
+          "métal"
         ],
         "marketingUrl": "https://operatorx-powderrunbook.vercel.app/fr.html",
-        "promoText": "Un carnet d'atelier hors ligne pour les jobs de thermolaquage, lots de poudre, cuisson, épaisseur et contrôle qualité.",
+        "promoText": "Relevés process hors ligne : lots de poudre, cuisson, épaisseur et contrôle saisi par l'opérateur, sans abonnement de gestion d'atelier.",
         "supportUrl": "https://operatorx-powderrunbook.vercel.app/support-fr.html",
         "privacyPolicyUrl": "https://operatorx-powderrunbook.vercel.app/privacy-fr.html",
         "screenshots": {
@@ -132,7 +131,7 @@
       "email": "luc.bigo25@gmail.com",
       "phone": "+33 6 37 70 45 36",
       "demoRequired": false,
-      "notes": "PowderRunbook is a paid-upfront, offline-first powder-coating shop runbook. No account, login, subscription, ads, analytics or external hardware are required. Use the prefilled demo records to review Jobs, Powder Lots, Overview and Settings. The app stores operator-entered process records locally and does not certify cure schedules or coating compliance."
+      "notes": "PowderRunbook is a paid-upfront, offline process-record app for powder-coating shops. It requires no login, account, subscription, ads, analytics, network service or external hardware. The production build intentionally starts with an empty local workspace.\n\nReviewer flow: (1) In Powders, add a powder lot with colour/lot/starting weight. (2) In Jobs, create a job and link that lot. (3) Enter target and measured thickness, target and observed cure temperature/time, prep notes and operator-entered QC status. (4) Move the job through Intake > Prep > Mask > Coat > Cure > QC > Done. (5) Open Overview to see the active pipeline, recent completions, recorded powder usage and low-stock count. (6) Open Settings to switch C/F and micron/mil display units. (7) Open a job and use the iOS share sheet to share its localized text summary.\n\nThe app is intentionally not a CRM, scheduling, messaging, ordering or team-management service. Its core utility is a private on-device process record tying material lot, cure values, coating thickness and operator QC to each job. It never determines or certifies process compliance; users must follow manufacturer TDS/SDS and approved shop procedures."
     }
   }
 }

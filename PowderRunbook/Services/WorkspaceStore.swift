@@ -22,8 +22,10 @@ final class WorkspaceStore: ObservableObject {
 
     init() {
         load()
+#if DEBUG
         let args = ProcessInfo.processInfo.arguments
         if args.contains("-store-demo") { seedScreenshotData() }
+#endif
     }
 
     var activeJobs: [CoatingJob] {
@@ -113,6 +115,7 @@ final class WorkspaceStore: ObservableObject {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 
+#if DEBUG
     private func seedScreenshotData() {
         let black = PowderLot(brand: "Prismatic", colorName: "Satin Black", colorCode: "RAL 9005", lotNumber: "SB-2408", startingWeightGrams: 5000, location: "Rack A3", notes: "")
         let bronze = PowderLot(brand: "IGP", colorName: "Bronze Fine Texture", colorCode: "BRZ-42", lotNumber: "IGP-7719", startingWeightGrams: 3500, location: "Rack B1", notes: "")
@@ -123,6 +126,7 @@ final class WorkspaceStore: ObservableObject {
             CoatingJob(jobNumber: "JOB-1042", customer: "Studio Huit", partName: "Table bases", quantity: 6, substrate: .steel, powderLotID: black.id, powderSnapshot: black.displayName, stage: .done, targetThicknessMicrons: 80, measuredThicknessMicrons: 83, cureTargetTempC: 190, cureTargetMinutes: 12, cureRecordedTempC: 191, cureRecordedMinutes: 13, powderUsedGrams: 520, prepNotes: "Blast + phosphate wash", notes: "Packed in foam sleeves", qcStatus: .accepted, createdAt: Date().addingTimeInterval(-172800), updatedAt: Date().addingTimeInterval(-86400), completedAt: Date().addingTimeInterval(-86400))
         ]
     }
+#endif
 }
 
 private extension JSONEncoder {

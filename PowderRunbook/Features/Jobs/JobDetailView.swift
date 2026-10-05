@@ -212,14 +212,34 @@ struct JobDetailView: View {
             "PowderRunbook · \(job.jobNumber)",
             job.displayTitle,
             job.customer,
-            "Stage: \(job.stage)",
-            "Powder: \(job.powderSnapshot)",
-            "Target thickness: \(thickness(job.targetThicknessMicrons))",
-            "Measured thickness: \(thickness(job.measuredThicknessMicrons))",
-            "Target cure: \(temperature(job.cureTargetTempC)) · \(minutes(job.cureTargetMinutes))",
-            "Recorded cure: \(temperature(job.cureRecordedTempC)) · \(minutes(job.cureRecordedMinutes))",
-            "QC: \(job.qcStatus.rawValue)",
+            "\(String(localized: "share.stage")): \(localizedStage(job.stage))",
+            "\(String(localized: "share.powder")): \(job.powderSnapshot)",
+            "\(String(localized: "job.target_thickness")): \(thickness(job.targetThicknessMicrons))",
+            "\(String(localized: "job.measured_thickness")): \(thickness(job.measuredThicknessMicrons))",
+            "\(String(localized: "share.target_cure")): \(temperature(job.cureTargetTempC)) · \(minutes(job.cureTargetMinutes))",
+            "\(String(localized: "share.recorded_cure")): \(temperature(job.cureRecordedTempC)) · \(minutes(job.cureRecordedMinutes))",
+            "\(String(localized: "share.qc")): \(localizedQC(job.qcStatus))",
             job.notes
         ].filter { !$0.isEmpty }.joined(separator: "\n")
+    }
+
+    private func localizedStage(_ stage: JobStage) -> String {
+        switch stage {
+        case .intake: String(localized: "stage.intake")
+        case .prep: String(localized: "stage.prep")
+        case .mask: String(localized: "stage.mask")
+        case .coat: String(localized: "stage.coat")
+        case .cure: String(localized: "stage.cure")
+        case .qc: String(localized: "stage.qc")
+        case .done: String(localized: "stage.done")
+        }
+    }
+
+    private func localizedQC(_ status: QCStatus) -> String {
+        switch status {
+        case .notChecked: String(localized: "qc.not_checked")
+        case .accepted: String(localized: "qc.accepted")
+        case .rework: String(localized: "qc.rework")
+        }
     }
 }

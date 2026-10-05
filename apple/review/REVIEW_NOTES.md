@@ -1,17 +1,16 @@
 # App Review Notes
 
-PowderRunbook is a paid-upfront, offline-first shop runbook for small powder-coating operations. No login is required. There are no in-app purchases, subscriptions, ads, analytics, external accounts or cloud services.
+PowderRunbook is a paid-upfront, offline process-record app for powder-coating shops. It requires no login, account, subscription, ads, analytics, network service or external hardware. The production build intentionally starts with an empty local workspace.
 
 Suggested reviewer flow:
-1. Open Jobs and create a job, or use the preloaded screenshot-mode sample data when reviewing store captures.
-2. Enter part/customer/substrate details and optionally link a powder lot from Powders.
-3. Record target and observed thickness/cure values, preparation notes and QC status.
+1. Open Powders and add a powder lot with colour/lot/starting weight.
+2. Open Jobs, create a job and link that powder lot.
+3. Enter target and measured thickness, target and observed cure temperature/time, prep notes and operator-entered QC status.
 4. Move the job through Intake → Prep → Mask → Coat → Cure → QC → Done.
-5. Open Powders to add/edit inventory lots and see remaining stock calculated from recorded job usage.
-6. Open Overview to see the active pipeline, recent completed jobs and recorded powder usage.
-7. Open Settings to switch between °C/°F and µm/mil.
-8. Open any job and use the system share sheet to share its text summary.
+5. Open Overview to see the active pipeline, recent completions, recorded powder usage and low-stock count.
+6. Open Settings to switch between °C/°F and µm/mil.
+7. Open a job and use the iOS share sheet to share its localized text summary.
 
-All job and powder data is stored locally on device. Network access is not required for app functionality.
+Differentiation: PowderRunbook is intentionally not a CRM, scheduling, messaging, ordering or team-management service. Its core utility is a private on-device process record tying material lot, cure values, coating thickness and operator QC to each job.
 
-Important scope: PowderRunbook records values entered by the operator. It does not automatically determine cure requirements, certify finished parts, or determine compliance. The UI repeatedly directs users to follow the powder manufacturer's current TDS/SDS, approved shop procedures, safety controls and inspection equipment.
+All job and powder data is stored locally on device. PowderRunbook records operator-entered values and never determines or certifies cure/process compliance. Users are directed to manufacturer TDS/SDS and approved shop procedures.

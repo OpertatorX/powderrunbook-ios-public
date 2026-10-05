@@ -28,11 +28,16 @@ struct RootView: View {
     private let screenshotDetailMode: Bool
 
     init() {
+#if DEBUG
         let arg = ProcessInfo.processInfo.arguments
             .first(where: { $0.hasPrefix("-screen=") })?
             .replacingOccurrences(of: "-screen=", with: "")
         _selection = State(initialValue: AppDestination(rawValue: arg ?? "") ?? .jobs)
         screenshotDetailMode = arg == "detail"
+#else
+        _selection = State(initialValue: .jobs)
+        screenshotDetailMode = false
+#endif
     }
 
     var body: some View {

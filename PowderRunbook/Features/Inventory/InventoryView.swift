@@ -139,7 +139,7 @@ struct PowderEditorView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("action.save") { save() }
                     .fontWeight(.semibold)
-                    .disabled(colorName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || weight == nil)
+                    .disabled(colorName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || weight == nil || (weight ?? 0) <= 0)
             }
         }
     }
@@ -147,7 +147,7 @@ struct PowderEditorView: View {
     private var weight: Double? { Double(startingWeight.replacingOccurrences(of: ",", with: ".")) }
 
     private func save() {
-        guard let weight else { return }
+        guard let weight, weight > 0 else { return }
         var value = original ?? PowderLot(
             brand: brand,
             colorName: colorName,

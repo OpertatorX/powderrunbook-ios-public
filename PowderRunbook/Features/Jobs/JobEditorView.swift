@@ -163,7 +163,8 @@ struct JobEditorView: View {
     }
 
     private func decimal(_ text: String) -> Double? {
-        Double(text.replacingOccurrences(of: ",", with: "."))
+        guard let value = Double(text.replacingOccurrences(of: ",", with: ".")), value >= 0 else { return nil }
+        return value
     }
 
     private static func defaultJobNumber() -> String {

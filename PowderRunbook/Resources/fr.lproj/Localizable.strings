@@ -137,3 +137,9 @@
 "settings.about" = "À propos de PowderRunbook";
 "settings.about_detail" = "Un runbook hors ligne pour petits ateliers de thermolaquage et indépendants qui veulent suivre jobs, matière, cuisson et contrôle sans ERP complet.";
 "settings.version" = "Version";
+
+"share.stage" = "Étape";
+"share.powder" = "Poudre";
+"share.target_cure" = "Cuisson cible";
+"share.recorded_cure" = "Cuisson relevée";
+"share.qc" = "Contrôle";

@@ -1,26 +1,27 @@
 Name: PowderRunbook
-Subtitle: Powder Coating Job Log
+Subtitle: Cure, QC & Powder Runbook
 
 Promotional text:
-Track coating jobs, powder lots, cure records and QC notes in one focused offline runbook built for small powder-coating shops.
+Offline process records for powder lots, cure values, coating thickness and operator-entered QC—without a shop-management subscription.
 
 Description:
-PowderRunbook is a focused offline job runbook for powder-coating shops and solo operators. Keep each part, powder lot, cure record and quality-control note together from intake to handoff—without turning your workshop into a full ERP project.
+PowderRunbook is a focused on-device process runbook for powder-coating shops and solo operators. Link each job to its powder lot, preparation notes, target and observed cure values, film-thickness readings and operator-entered QC result—without an account, cloud service or full shop-management system.
 
-Built for the shop floor:
-• move jobs through Intake, Prep, Mask, Coat, Cure, QC and Done;
-• record customer, part, quantity and substrate details;
-• link jobs to powder inventory lots and track recorded usage;
-• record target and measured coating thickness;
-• record cure target and observed temperature/time values;
-• keep prep notes, job notes and operator-entered QC status;
-• see active pipeline, recent completions, recorded powder usage and low-stock lots;
-• search jobs by number, customer, part or powder;
-• share a job summary through the iOS share sheet;
-• switch display units between °C/°F and µm/mil.
+PROCESS RECORDS FIRST
+Keep target thickness beside the measured result, target cure beside observed temperature/time, and QC notes with the exact job that produced them. PowderRunbook records shop-floor facts; it does not automatically approve a cure cycle or certify a part.
 
-Private by design: no account, no ads, no analytics, no subscription and no cloud upload. Your workshop records stay on your device unless you explicitly share a job summary.
+TRACE POWDER LOTS
+Record brand, colour, code, lot number, storage location and starting weight. Job usage provides a practical on-device estimate of remaining powder.
 
-PowderRunbook is a recordkeeping tool. It does not determine cure schedules, certify parts or replace manufacturer TDS/SDS, approved shop procedures, qualified operators or inspection equipment.
+A SIMPLE SHOP FLOW
+Move work through Intake, Prep, Mask, Coat, Cure, QC and Done while keeping customer, part, quantity and substrate details attached to the record.
 
-Keywords: powder coating,coat,job log,shop,cure,oven,thickness,QC,inventory,lot,finish,metal
+SEE RECORDED WORK AT A GLANCE
+Review active stages, recent completions, recorded powder usage and low-stock lots without a server dashboard.
+
+PRIVATE BY DESIGN
+No account, ads, analytics, subscription or cloud upload. Records stay on the device unless you explicitly share a job summary with the iOS share sheet.
+
+PowderRunbook is a recordkeeping aid, not a process-certification system. Always follow the coating manufacturer's current TDS/SDS, pretreatment requirements, calibrated inspection procedures and workplace-safety rules.
+
+Keywords: powder coating,DFT,cure log,QC,traceability,batch,thickness,oven,lot,finish,metal
