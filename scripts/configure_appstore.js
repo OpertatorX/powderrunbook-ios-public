@@ -33,7 +33,6 @@ async function ensureVersionLocalization(version, locale, cfg) {
     marketingUrl: cfg.marketingUrl,
     promotionalText: cfg.promoText,
     supportUrl: cfg.supportUrl,
-    whatsNew: null,
   });
 }
 
