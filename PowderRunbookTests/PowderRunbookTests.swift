@@ -24,6 +24,6 @@ final class PowderRunbookTests: XCTestCase {
 
     func testPowderDisplayNameUsesCodeWhenPresent() {
         let lot = PowderLot(brand: "Example", colorName: "Satin Black", colorCode: "RAL 9005", lotNumber: "A1", startingWeightGrams: 1000, location: "A", notes: "")
-        XCTAssertEqual(lot.displayName, "Satin Black · RAL 9005")
+        XCTAssertEqual(lot.displayName, "Satin Black \u{00B7} RAL 9005")
     }
 }

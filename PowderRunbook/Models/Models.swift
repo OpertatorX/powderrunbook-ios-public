@@ -1,4 +1,4 @@
-﻿import Foundation
+import Foundation
 import SwiftUI
 
 enum JobStage: Int, CaseIterable, Codable, Identifiable, Hashable {
@@ -77,7 +77,7 @@ struct PowderLot: Identifiable, Codable, Hashable {
 
     var displayName: String {
         let code = colorCode.trimmingCharacters(in: .whitespacesAndNewlines)
-        return code.isEmpty ? colorName : "\(colorName) Â· \(code)"
+        return code.isEmpty ? colorName : "\(colorName) \u{00B7} \(code)"
     }
 }
 
