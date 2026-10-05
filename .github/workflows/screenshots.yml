@@ -6,7 +6,7 @@ on:
 jobs:
   capture:
     runs-on: macos-14
-    timeout-minutes: 35
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - name: Install XcodeGen
@@ -21,32 +21,30 @@ jobs:
             -configuration Debug \
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$PWD/DerivedData" \
-            CODE_SIGNING_ALLOWED=NO SWIFT_VERSION=5.0 build
+            CODE_SIGNING_ALLOWED=NO \
+            SWIFT_VERSION=5.0 \
+            build
       - name: Select stable simulators
         id: devices
         run: |
           DEVICES=$(xcrun simctl list devices available -j)
-          IPHONE=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPhone")]; print(a[0]["udid"])')
-          IPAD=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPad")]; print(a[0]["udid"])')
+          IPHONE=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPhone")]; p=[x for x in a if "Pro Max" in x["name"]]; print((p or a)[-1]["udid"])')
+          IPAD=$(echo "$DEVICES" | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; a=[x for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPad")]; p=[x for x in a if "13-inch" in x["name"] or "12.9-inch" in x["name"]]; print((p or a)[-1]["udid"])')
           echo "iphone=$IPHONE" >> "$GITHUB_OUTPUT"
           echo "ipad=$IPAD" >> "$GITHUB_OUTPUT"
           xcrun simctl list devices | grep -E "$IPHONE|$IPAD" || true
       - name: Prepare folders
         run: mkdir -p screenshots/en-US/iphone screenshots/fr-FR/iphone screenshots/en-US/ipad screenshots/fr-FR/ipad
-      - name: Warm and capture iPhone
+      - name: Capture iPhone FR and US
         env:
           UDID: ${{ steps.devices.outputs.iphone }}
         run: |
           set -euo pipefail
-          xcodebuild \
-            -project PowderRunbook.xcodeproj \
-            -scheme PowderRunbook \
-            -configuration Debug \
-            -destination "platform=iOS Simulator,id=$UDID" \
-            -derivedDataPath "$PWD/DerivedData" \
-            CODE_SIGNING_ALLOWED=NO \
-            SWIFT_VERSION=5.0 \
-            test
+          APP="$PWD/DerivedData/Build/Products/Debug-iphonesimulator/PowderRunbook.app"
+          xcrun simctl shutdown all || true
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
           xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 --cellularBars 4 || true
           capture_locale () {
             LOCALE="$1"; LANG="$2"; OUT="$3"
@@ -59,20 +57,16 @@ jobs:
           }
           capture_locale 'en_US' 'en' 'screenshots/en-US/iphone'
           capture_locale 'fr_FR' 'fr' 'screenshots/fr-FR/iphone'
-      - name: Warm and capture iPad
+          xcrun simctl shutdown "$UDID" || true
+      - name: Capture iPad FR and US
         env:
           UDID: ${{ steps.devices.outputs.ipad }}
         run: |
           set -euo pipefail
-          xcodebuild \
-            -project PowderRunbook.xcodeproj \
-            -scheme PowderRunbook \
-            -configuration Debug \
-            -destination "platform=iOS Simulator,id=$UDID" \
-            -derivedDataPath "$PWD/DerivedData" \
-            CODE_SIGNING_ALLOWED=NO \
-            SWIFT_VERSION=5.0 \
-            test
+          APP="$PWD/DerivedData/Build/Products/Debug-iphonesimulator/PowderRunbook.app"
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
           xcrun simctl status_bar "$UDID" override --time '9:41' --batteryLevel 100 --batteryState charged --wifiBars 3 || true
           capture_locale () {
             LOCALE="$1"; LANG="$2"; OUT="$3"
@@ -85,6 +79,7 @@ jobs:
           }
           capture_locale 'en_US' 'en' 'screenshots/en-US/ipad'
           capture_locale 'fr_FR' 'fr' 'screenshots/fr-FR/ipad'
+          xcrun simctl shutdown "$UDID" || true
       - name: Validate screenshot set
         run: |
           set -euo pipefail
