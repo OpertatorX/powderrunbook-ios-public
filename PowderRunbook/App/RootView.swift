@@ -22,19 +22,28 @@ enum AppDestination: String, CaseIterable, Identifiable, Hashable {
 }
 
 struct RootView: View {
+    @EnvironmentObject private var store: WorkspaceStore
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var selection: AppDestination
+    private let screenshotDetailMode: Bool
 
     init() {
         let arg = ProcessInfo.processInfo.arguments
             .first(where: { $0.hasPrefix("-screen=") })?
             .replacingOccurrences(of: "-screen=", with: "")
         _selection = State(initialValue: AppDestination(rawValue: arg ?? "") ?? .jobs)
+        screenshotDetailMode = arg == "detail"
     }
 
     var body: some View {
         Group {
-            if horizontalSizeClass == .compact { compactTabs } else { splitView }
+            if screenshotDetailMode, let job = store.jobs.first {
+                NavigationStack { JobDetailView(jobID: job.id) }
+            } else if horizontalSizeClass == .compact {
+                compactTabs
+            } else {
+                splitView
+            }
         }
         .background(PRTheme.canvas.ignoresSafeArea())
     }
