@@ -20,7 +20,7 @@ L'ATELIER EN UN COUP D'ŒIL
 Consultez étapes actives, derniers jobs terminés, consommation relevée et lots bas sans tableau de bord serveur.
 
 PRIVÉ PAR CONCEPTION
-Aucun compte, aucune publicité, aucune analyse, aucun abonnement et aucun envoi cloud. Les relevés restent sur l'appareil sauf partage volontaire d'un résumé via la feuille de partage iOS.
+Aucun compte OperatorX, aucune publicité, aucune analyse, aucun abonnement ni synchronisation serveur. Les relevés sont stockés localement dans l'app sauf partage volontaire via la feuille de partage iOS ; les sauvegardes système dépendent d'iOS et des réglages de l'appareil.
 
 PowderRunbook est un outil de traçabilité, pas un système de certification de procédé. Respectez toujours les TDS/SDS à jour du fabricant, les exigences de préparation, vos procédures d'inspection étalonnées et les règles de sécurité de l'atelier.
 

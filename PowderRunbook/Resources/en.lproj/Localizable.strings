@@ -131,7 +131,7 @@
 "settings.microns" = "µm";
 "settings.mils" = "mil";
 "settings.privacy" = "Private by design";
-"settings.privacy_detail" = "No account, ads, analytics or cloud upload. Job and powder records stay on this device unless you explicitly share a job summary.";
+"settings.privacy_detail" = "No account, ads, analytics or OperatorX server sync. Records are stored in the app unless you explicitly share a job summary; system backups are controlled by iOS and your device settings.";
 "settings.process" = "Process responsibility";
 "settings.process_detail" = "PowderRunbook records shop-floor facts. It does not replace manufacturer technical data, safety documentation, qualified operators, inspection equipment or your quality system.";
 "settings.about" = "About PowderRunbook";

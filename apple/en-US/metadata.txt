@@ -20,7 +20,7 @@ SEE RECORDED WORK AT A GLANCE
 Review active stages, recent completions, recorded powder usage and low-stock lots without a server dashboard.
 
 PRIVATE BY DESIGN
-No account, ads, analytics, subscription or cloud upload. Records stay on the device unless you explicitly share a job summary with the iOS share sheet.
+No OperatorX account, ads, analytics, subscription or server sync. Records are stored locally in the app unless you explicitly share a job summary with the iOS share sheet; system backups are controlled by iOS and device settings.
 
 PowderRunbook is a recordkeeping aid, not a process-certification system. Always follow the coating manufacturer's current TDS/SDS, pretreatment requirements, calibrated inspection procedures and workplace-safety rules.
 

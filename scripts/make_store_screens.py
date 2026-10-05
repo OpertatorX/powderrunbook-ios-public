@@ -15,18 +15,18 @@ BG_BOTTOM = (232, 226, 216)
 
 COPY = {
     "en-US": [
-        ("jobs", "SHOP FLOOR FLOW", "Every job.\nOne clean flow.", "Move work from intake to handoff without turning the shop into an ERP project."),
         ("detail", "PROCESS RECORD", "Cure & QC records,\nwhere they belong.", "Keep powder, thickness, cure values and operator notes together on the job."),
         ("inventory", "POWDER TRACEABILITY", "Powder lots,\nalways traceable.", "Track lot number, location and recorded usage beside the work that consumed it."),
+        ("jobs", "SHOP FLOOR FLOW", "Every job.\nOne clean flow.", "Move work from intake to handoff without turning the shop into an ERP project."),
         ("overview", "AT A GLANCE", "See the shop\nat a glance.", "Know what is active, what finished and where recorded powder usage is going."),
-        ("settings", "PRIVATE BY DESIGN", "Private. Offline.\nBuilt for the floor.", "No account, ads, analytics or cloud upload. Your workshop records stay on device."),
+        ("settings", "PRIVATE BY DESIGN", "Private. Offline.\nBuilt for the floor.", "No OperatorX account, ads or analytics.\nThe app sends no job records to an OperatorX server."),
     ],
     "fr-FR": [
-        ("jobs", "FLUX ATELIER", "Chaque job.\nUn flux clair.", "Suivez le travail de la réception à la remise client sans déployer un ERP complet."),
         ("detail", "RELEVÉ PROCESS", "Cuisson & contrôle,\nau bon endroit.", "Gardez poudre, épaisseur, valeurs de cuisson et notes opérateur avec le job."),
         ("inventory", "TRAÇABILITÉ POUDRE", "Lots de poudre,\ntoujours traçables.", "Suivez lot, emplacement et consommation relevée avec les jobs qui l'utilisent."),
+        ("jobs", "FLUX ATELIER", "Chaque job.\nUn flux clair.", "Suivez le travail de la réception à la remise client sans déployer un ERP complet."),
         ("overview", "EN UN COUP D’ŒIL", "L’atelier,\nen un coup d’œil.", "Voyez les jobs actifs, les derniers terminés et la consommation de poudre relevée."),
-        ("settings", "PRIVÉ PAR CONCEPTION", "Privé. Hors ligne.\nPensé atelier.", "Aucun compte, pub, analyse ni cloud. Les données atelier restent sur l’appareil."),
+        ("settings", "PRIVÉ PAR CONCEPTION", "Privé. Hors ligne.\nPensé atelier.", "Aucun compte OperatorX, pub ni analyse.\nL’app n’envoie aucun relevé à un serveur OperatorX."),
     ],
 }
 

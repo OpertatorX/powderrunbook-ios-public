@@ -131,7 +131,7 @@
 "settings.microns" = "µm";
 "settings.mils" = "mil";
 "settings.privacy" = "Privé par conception";
-"settings.privacy_detail" = "Aucun compte, aucune publicité, aucune analyse et aucun envoi cloud. Les jobs et lots restent sur cet appareil sauf si vous partagez volontairement un résumé de job.";
+"settings.privacy_detail" = "Aucun compte, aucune publicité, aucune analyse ni synchronisation vers un serveur OperatorX. Les relevés restent dans l’app sauf partage volontaire ; les sauvegardes système dépendent d’iOS et des réglages de l’appareil.";
 "settings.process" = "Responsabilité process";
 "settings.process_detail" = "PowderRunbook consigne des faits atelier. Il ne remplace pas les données techniques du fabricant, la documentation sécurité, les opérateurs qualifiés, les instruments de contrôle ni votre système qualité.";
 "settings.about" = "À propos de PowderRunbook";
