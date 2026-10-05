@@ -108,7 +108,6 @@ async function main() {
   if (review) await review.updateAsync(reviewAttrs);
   else await version.createReviewDetailAsync(reviewAttrs);
 
-  await configurePrivacy(app);
   await configurePrice(app);
 
   const territories = await AU.Territory.getAsync(context);
