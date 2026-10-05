@@ -1,0 +1,15 @@
+DerivedData/
+.build/
+*.xcuserstate
+*.xcuserdata/
+artifacts/
+.DS_Store
+.env
+private_keys/
+screenshots/
+screenshots-promo/
+xcodegen-artifact/
+.factory-private/
+node_modules/
+RUN_APPLE_LOGIN.ps1
+.powderrunbook-asc.json

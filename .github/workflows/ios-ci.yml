@@ -1,0 +1,52 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Build
+        run: |
+          xcodebuild \
+            -project PowderRunbook.xcodeproj \
+            -scheme PowderRunbook \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$PWD/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+      - name: Validate bundled release assets
+        run: |
+          APP="$PWD/DerivedData/Build/Products/Debug-iphonesimulator/PowderRunbook.app"
+          test -f "$APP/en.lproj/Localizable.strings"
+          test -f "$APP/fr.lproj/Localizable.strings"
+          test -f "$APP/PrivacyInfo.xcprivacy"
+          test -f "$APP/AppIcon60x60@2x.png" || test -f "$APP/Assets.car"
+          echo "Locales, privacy manifest and icon assets are bundled."
+      - name: Pick simulator
+        id: simulator
+        run: |
+          UDID=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; ids=[x["udid"] for r in d.values() for x in r if x.get("isAvailable") and x.get("name","").startswith("iPhone")]; print(ids[0])')
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+      - name: Unit tests
+        run: |
+          xcodebuild \
+            -project PowderRunbook.xcodeproj \
+            -scheme PowderRunbook \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,id=${{ steps.simulator.outputs.udid }}' \
+            -derivedDataPath "$PWD/DerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            test
