@@ -21,7 +21,7 @@ jobs:
             -configuration Debug \
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$PWD/DerivedData" \
-            CODE_SIGNING_ALLOWED=NO build
+            CODE_SIGNING_ALLOWED=NO SWIFT_VERSION=5.0 build
       - name: Select stable simulators
         id: devices
         run: |
