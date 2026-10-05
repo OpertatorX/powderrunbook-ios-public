@@ -61,7 +61,7 @@ struct JobDetailView: View {
                 }
                 HStack(spacing: 18) {
                     Label("\(job.quantity)", systemImage: "number")
-                    Label(String(localized: String.LocalizationValue(job.substrate.rawValue)), systemImage: "square.stack.3d.up")
+                    Label(localizedSubstrate(job.substrate), systemImage: "square.stack.3d.up")
                     if !job.powderSnapshot.isEmpty {
                         Label(job.powderSnapshot, systemImage: "paintpalette").lineLimit(1)
                     }
@@ -186,7 +186,13 @@ struct JobDetailView: View {
     }
 
     private func localizedSubstrate(_ value: Substrate) -> String {
-        String(localized: String.LocalizationValue("substrate.\(value.rawValue)"))
+        switch value {
+        case .steel: String(localized: "substrate.steel")
+        case .aluminum: String(localized: "substrate.aluminum")
+        case .galvanized: String(localized: "substrate.galvanized")
+        case .castIron: String(localized: "substrate.castiron")
+        case .other: String(localized: "substrate.other")
+        }
     }
     private func thickness(_ value: Double?) -> String {
         guard let value else { return "—" }

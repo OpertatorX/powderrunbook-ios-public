@@ -58,9 +58,15 @@ struct RootView: View {
 
     private var splitView: some View {
         NavigationSplitView {
-            List(AppDestination.allCases, selection: $selection) { destination in
-                NavigationLink(value: destination) {
-                    Label(destination.title, systemImage: destination.symbol)
+            List(selection: Binding<AppDestination?>(
+                get: { selection },
+                set: { value in if let value { selection = value } }
+            )) {
+                ForEach(AppDestination.allCases) { destination in
+                    NavigationLink(value: destination) {
+                        Label(destination.title, systemImage: destination.symbol)
+                    }
+                    .tag(destination)
                 }
             }
             .navigationTitle("PowderRunbook")
