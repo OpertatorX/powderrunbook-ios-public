@@ -66,7 +66,6 @@ async function main() {
     id: app.id,
     attributes: {
       contentRightsDeclaration: AU.ContentRightsDeclaration.DOES_NOT_USE_THIRD_PARTY_CONTENT,
-      isOrEverWasMadeForKids: false,
     },
   });
 
