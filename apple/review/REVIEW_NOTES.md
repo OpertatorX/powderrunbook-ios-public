@@ -14,3 +14,5 @@ Suggested reviewer flow:
 Differentiation: PowderRunbook is intentionally not a CRM, scheduling, messaging, ordering or team-management service. Its core utility is a private on-device process record tying material lot, cure values, coating thickness and operator QC to each job.
 
 All job and powder data is stored locally on device. PowderRunbook records operator-entered values and never determines or certifies cure/process compliance. Users are directed to manufacturer TDS/SDS and approved shop procedures.
+
+The App Store screenshots show realistic example records created with the same user-facing fields available in the production app. There is no hidden demo mode or preloaded production database.
