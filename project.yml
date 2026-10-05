@@ -1,5 +1,8 @@
 name: PowderRunbook
-options:`r`n  xcodeVersion: "15.4"`r`n  projectFormat: xcode15_3`r`n  bundleIdPrefix: com.operatorx
+options:
+  xcodeVersion: "15.4"
+  projectFormat: xcode15_3
+  bundleIdPrefix: com.operatorx
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true
